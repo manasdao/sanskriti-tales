@@ -9,13 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
+    "file-loader": "^6.2.0",
     "next": "13.4.4",
     "postcss": "8.4.24",
+    "posthog-js": "^1.67.1",
     "react": "18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-dom": "18.2.0",
+    "react-h5-audio-player": "^3.8.6",
     "tailwindcss": "3.3.2"
   }
 }

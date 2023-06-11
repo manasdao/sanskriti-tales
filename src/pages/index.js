@@ -1,118 +1,177 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Image from "next/image";
+import bgMandala from "../../public/assets/svgs/bg_mandala.svg";
+import logo from "../../public/assets/svgs/logo.svg";
+import { useState } from "react";
+import Link from "next/link";
+import { Poppins } from "next/font/google";
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export default function Home() {
+  const [nameInput, setNameInput] = useState("");
+  const [selectedQuality, setSelectedQuality] = useState("Kindness");
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex relative min-h-screen flex-col items-center justify-between py-36 px-8 ${poppins.className}`}
     >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <Image
+        src={bgMandala}
+        className="absolute opacity-5  bg-blend-overlay top-0 w-full"
+        alt=""
+      />
+      <Image
+        src={bgMandala}
+        className="absolute rotate-180 opacity-5  bg-blend-overlay bottom-0 w-full"
+        alt=""
+      />
+
+      <section className="w-full flex flex-col items-center">
+        <div className="flex items-center w-full ml-8">
+          <Image src={logo} className=" w-28" alt="" />
+          <span className="font-[600] tracking-wide text-orange-500 text-xl">
+            Sanskriti Tales
+          </span>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+        <input
+          type="text"
+          value={nameInput}
+          onChange={(ev) => {
+            setNameInput(ev.target.value);
+          }}
+          name=""
+          className="text-center w-full text-md outline-none border-2 border-orange-200  px-4 py-2 rounded-full"
+          id=""
+          style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+          placeholder="Enter your kid's name"
         />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+        <div className="flex items-start flex-col self-start mt-8">
+          <span className="font-[700] text-gray-500 text-md text-left">
+            Select qualities for your child
+          </span>
+          <div className="flex items-center space-x-2 text-xs mt-2">
+            <span
+              onClick={() => {
+                setSelectedQuality("Kindness");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedQuality == "Kindness"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              Kindness
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+            <span
+              onClick={() => {
+                setSelectedQuality("Bravery");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedQuality == "Bravery"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              Bravery
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+            <span
+              onClick={() => {
+                setSelectedQuality("Determination");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedQuality == "Determination"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              Determination
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+          </div>
+        </div>
+        <div className="flex items-start flex-col self-start mt-8">
+          <span className="font-[700] text-gray-500 text-md text-left">
+            Choose language
+          </span>
+          <div className="flex items-center space-x-2 text-xs mt-2">
+            <span
+              onClick={() => {
+                setSelectedLanguage("English");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedLanguage == "English"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              English
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+            <span
+              onClick={() => {
+                setSelectedLanguage("Hindi");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedLanguage == "Hindi"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              <svg
+                width="26"
+                height="17"
+                viewBox="0 0 26 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.29083 0.748C7.2055 0.748 8.0175 0.911333 8.72683 1.238C9.4455 1.56467 10.0055 2.036 10.4068 2.652C10.8082 3.268 11.0088 3.98667 11.0088 4.808V5.046H9.24483V4.836C9.24483 4.248 9.10016 3.76267 8.81083 3.38C8.53083 2.988 8.16683 2.69867 7.71883 2.512C7.27083 2.32533 6.79483 2.232 6.29083 2.232C5.4975 2.232 4.81616 2.428 4.24683 2.82C3.67749 3.20267 3.37883 3.80933 3.35083 4.64H4.91883V6.152H3.36483V15H1.55883V6.152H0.0048281V4.64H1.55883C1.58683 3.81867 1.80149 3.11867 2.20283 2.54C2.61349 1.952 3.16883 1.50867 3.86883 1.21C4.56883 0.902 5.37616 0.748 6.29083 0.748ZM8.76314 8.672C8.43647 8.672 8.17047 8.73733 7.96514 8.868C7.75981 8.99867 7.65714 9.21333 7.65714 9.512C7.65714 9.69867 7.70847 9.862 7.81114 10.002C7.91381 10.142 8.05381 10.2493 8.23114 10.324C8.42714 10.2867 8.66047 10.268 8.93114 10.268C9.89247 10.268 10.6438 10.5013 11.1851 10.968C11.7265 11.4347 12.0438 12.032 12.1371 12.76H10.4011C10.3358 12.48 10.1725 12.2373 9.91114 12.032C9.64981 11.8173 9.31381 11.71 8.90314 11.71C8.41781 11.71 8.02581 11.864 7.72714 12.172C7.43781 12.48 7.29314 12.8813 7.29314 13.376C7.29314 13.8707 7.43781 14.272 7.72714 14.58C8.02581 14.8787 8.41781 15.028 8.90314 15.028C9.29514 15.028 9.62181 14.93 9.88314 14.734C10.1538 14.5287 10.3265 14.286 10.4011 14.006H12.1371C12.0531 14.7527 11.7171 15.3593 11.1291 15.826C10.5505 16.2927 9.80847 16.526 8.90314 16.526C8.21247 16.526 7.61047 16.3907 7.09714 16.12C6.59314 15.8493 6.20581 15.476 5.93514 15C5.66447 14.5147 5.52914 13.9593 5.52914 13.334C5.52914 12.7833 5.64581 12.2933 5.87914 11.864C6.12181 11.4253 6.45781 11.0707 6.88714 10.8C6.56047 10.6227 6.30847 10.3987 6.13114 10.128C5.95381 9.848 5.86514 9.526 5.86514 9.162C5.86514 8.602 6.06581 8.16333 6.46714 7.846C6.87781 7.52867 7.42847 7.37 8.11914 7.37H9.51914V6.152H4.32514V4.64H13.1031V6.152H11.2411V8.672H8.76314ZM13.9019 2.414C13.9019 2.71267 13.7946 2.96933 13.5799 3.184C13.3746 3.38933 13.1179 3.492 12.8099 3.492C12.5019 3.492 12.2406 3.38933 12.0259 3.184C11.8206 2.96933 11.7179 2.71267 11.7179 2.414C11.7179 2.106 11.8206 1.84933 12.0259 1.644C12.2406 1.42933 12.5019 1.322 12.8099 1.322C13.1179 1.322 13.3746 1.42933 13.5799 1.644C13.7946 1.84933 13.9019 2.106 13.9019 2.414ZM17.5683 8.98C16.9523 8.98 16.4529 9.13867 16.0703 9.456C15.6876 9.77333 15.4963 10.2167 15.4963 10.786C15.4963 11.2993 15.6503 11.71 15.9583 12.018C16.2663 12.3167 16.6769 12.466 17.1903 12.466C17.6103 12.466 17.9696 12.3353 18.2683 12.074C18.5763 11.8127 18.7303 11.4393 18.7303 10.954H20.3963V15.378H18.6323V13.068C18.4269 13.3387 18.1563 13.5487 17.8203 13.698C17.4843 13.838 17.1016 13.908 16.6723 13.908C16.1123 13.908 15.6036 13.7867 15.1463 13.544C14.6889 13.3013 14.3249 12.942 14.0543 12.466C13.7836 11.99 13.6483 11.4113 13.6483 10.73C13.6483 10.03 13.8069 9.43267 14.1243 8.938C14.4509 8.434 14.8943 8.056 15.4543 7.804C16.0236 7.552 16.6676 7.426 17.3863 7.426H18.0863V6.152H12.5283V4.64H21.6703L21.6563 6.152H19.9063V8.98H17.5683ZM26.0009 4.64V6.152H24.4469V15H22.6409V6.152H21.0869V4.64H22.6969V4.08C22.6969 3.576 22.6035 3.15133 22.4169 2.806C22.2302 2.45133 21.8895 2.274 21.3949 2.274C20.8909 2.274 20.5455 2.45133 20.3589 2.806C20.1629 3.15133 20.0649 3.576 20.0649 4.08V5.046H18.3149V4.178C18.3149 3.12333 18.5622 2.288 19.0569 1.672C19.5422 1.056 20.3215 0.748 21.3949 0.748C23.4295 0.748 24.4469 1.89133 24.4469 4.178V4.64H26.0009Z"
+                  fill={selectedLanguage == "Hindi" ? "#ffffff" : "#F97316"}
+                />
+              </svg>
+            </span>
+            <span
+              onClick={() => {
+                setSelectedLanguage("Kannada");
+              }}
+              style={{ boxShadow: "0px 8px 0px #FCDECC" }}
+              className={`border-2 px-3 py-2 rounded-full font-[600] border-orange-200 ${
+                selectedLanguage == "Kannada"
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-orange-500"
+              }`}
+            >
+              <svg
+                width="34"
+                height="18"
+                viewBox="0 0 34 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.83318 12.168C4.01185 12.168 3.33051 12.0653 2.78918 11.86C2.25718 11.6547 1.86051 11.3887 1.59918 11.062C1.34718 10.726 1.22118 10.3573 1.22118 9.956C1.22118 9.62 1.27251 9.33533 1.37518 9.102C1.47785 8.85933 1.65518 8.626 1.90718 8.402L0.91318 8.416V6.988H3.83918C4.01651 6.91333 4.15651 6.82467 4.25918 6.722C4.37118 6.61 4.42718 6.48867 4.42718 6.358C4.42718 6.246 4.39451 6.13867 4.32918 6.036H0.89918V4.272H5.11318C5.61718 4.272 5.97185 4.25333 6.17718 4.216C6.38251 4.17867 6.53185 4.12733 6.62518 4.062C6.75585 3.98733 6.83985 3.89867 6.87718 3.796C6.91451 3.69333 6.93318 3.56733 6.93318 3.418C6.93318 3.15667 6.86785 2.90467 6.73718 2.662C6.60651 2.41933 6.41985 2.158 6.17718 1.878L7.73118 0.967999C8.17918 1.528 8.48251 2.02267 8.64118 2.452C8.80918 2.88133 8.89318 3.32933 8.89318 3.796C8.89318 4.01067 8.85118 4.26733 8.76718 4.566C8.69251 4.85533 8.53385 5.11667 8.29118 5.35C8.05785 5.55533 7.77785 5.714 7.45118 5.826C7.12451 5.938 6.68118 6.00333 6.12118 6.022C6.18651 6.15267 6.21918 6.26933 6.21918 6.372C6.21918 6.61467 6.15851 6.82 6.03718 6.988H8.82318V8.416L7.82918 8.402C8.32385 8.78467 8.57118 9.29333 8.57118 9.928C8.57118 10.3293 8.44518 10.7027 8.19318 11.048C7.94118 11.384 7.53985 11.6547 6.98918 11.86C6.44785 12.0653 5.72918 12.168 4.83318 12.168ZM4.88918 10.432C5.48651 10.432 5.91118 10.3247 6.16318 10.11C6.41518 9.886 6.54118 9.62467 6.54118 9.326C6.54118 8.99 6.40118 8.71933 6.12118 8.514C5.85051 8.30867 5.43985 8.206 4.88918 8.206C4.32918 8.206 3.91385 8.31333 3.64318 8.528C3.38185 8.73333 3.25118 8.99933 3.25118 9.326C3.25118 9.65267 3.38651 9.91867 3.65718 10.124C3.92785 10.3293 4.33851 10.432 4.88918 10.432ZM16.5752 12.168C15.8379 12.168 15.2266 12 14.7412 11.664C14.2559 11.328 13.7752 10.852 13.2992 10.236C13.0939 9.956 12.9259 9.75533 12.7952 9.634C12.6739 9.51267 12.5386 9.452 12.3892 9.452C12.1839 9.452 12.0252 9.51733 11.9132 9.648C11.8106 9.77867 11.7592 9.942 11.7592 10.138C11.7592 10.3993 11.8106 10.642 11.9132 10.866C12.0159 11.0807 12.1559 11.328 12.3332 11.608L10.5552 12.336C10.3219 12.028 10.1259 11.6593 9.96724 11.23C9.80858 10.8007 9.72924 10.4133 9.72924 10.068C9.72924 9.368 9.94391 8.79867 10.3732 8.36C10.8119 7.92133 11.4559 7.702 12.3052 7.702C12.8092 7.702 13.2619 7.80933 13.6632 8.024C14.0646 8.22933 14.4799 8.61667 14.9092 9.186C15.2172 9.58733 15.4926 9.89067 15.7352 10.096C15.9872 10.292 16.2626 10.39 16.5612 10.39C17.2239 10.39 17.5552 9.96533 17.5552 9.116C17.5552 8.45333 17.3359 7.85133 16.8972 7.31C16.4586 6.76867 15.8706 6.344 15.1332 6.036H9.74324V4.272H15.8052C16.3092 4.272 16.6639 4.25333 16.8692 4.216C17.0746 4.17867 17.2286 4.12733 17.3312 4.062C17.4526 3.98733 17.5319 3.89867 17.5692 3.796C17.6066 3.69333 17.6252 3.56733 17.6252 3.418C17.6252 3.15667 17.5599 2.90467 17.4292 2.662C17.2986 2.41933 17.1119 2.158 16.8692 1.878L18.4232 0.967999C18.8712 1.528 19.1746 2.02267 19.3332 2.452C19.5012 2.88133 19.5852 3.32933 19.5852 3.796C19.5852 4.01067 19.5432 4.26733 19.4592 4.566C19.3846 4.85533 19.2212 5.11667 18.9692 5.35C18.8012 5.49933 18.6239 5.616 18.4372 5.7C18.2506 5.784 18.0499 5.84933 17.8352 5.896C18.4139 6.33467 18.8526 6.82467 19.1512 7.366C19.4499 7.90733 19.5992 8.514 19.5992 9.186C19.5992 10.1847 19.3379 10.9313 18.8152 11.426C18.3019 11.9207 17.5552 12.168 16.5752 12.168ZM17.6047 12.77C18.174 12.77 18.6547 12.9053 19.0467 13.176C19.4387 13.456 19.812 13.8807 20.1667 14.45C20.456 14.058 20.6007 13.6147 20.6007 13.12C20.6007 12.7653 20.5587 12.462 20.4747 12.21C20.4 11.9673 20.2973 11.734 20.1667 11.51L21.3707 10.894C21.7907 11.5007 22.0007 12.238 22.0007 13.106C22.0007 13.638 21.8933 14.1093 21.6787 14.52C21.4733 14.94 21.198 15.2993 20.8527 15.598C20.974 15.7473 21.1 15.8453 21.2307 15.892C21.3707 15.948 21.5527 15.976 21.7767 15.976C21.8607 15.976 21.9587 15.9667 22.0707 15.948C22.192 15.9293 22.2853 15.906 22.3507 15.878L22.5467 17.096C22.472 17.1333 22.3507 17.1707 22.1827 17.208C22.024 17.2453 21.8653 17.264 21.7067 17.264C21.2027 17.264 20.8153 17.18 20.5447 17.012C20.274 16.844 20.0267 16.5873 19.8027 16.242C19.2147 16.494 18.594 16.62 17.9407 16.62C17.3527 16.62 16.8813 16.5267 16.5267 16.34C16.1627 16.1533 15.8967 15.906 15.7287 15.598C15.5607 15.29 15.4767 14.9633 15.4767 14.618C15.4767 14.0673 15.6727 13.6193 16.0647 13.274C16.4567 12.938 16.97 12.77 17.6047 12.77ZM16.8907 14.632C16.8907 14.8093 16.9747 14.982 17.1427 15.15C17.3013 15.3273 17.6233 15.416 18.1087 15.416C18.5193 15.416 18.8927 15.3413 19.2287 15.192C18.7807 14.38 18.2767 13.974 17.7167 13.974C17.446 13.974 17.2407 14.0347 17.1007 14.156C16.9607 14.2773 16.8907 14.436 16.8907 14.632ZM25.066 12.168C24.2447 12.168 23.5914 11.902 23.106 11.37C22.6207 10.838 22.378 10.0587 22.378 9.032C22.378 8.39733 22.4947 7.828 22.728 7.324C22.9707 6.81067 23.3347 6.38133 23.82 6.036H22.378V4.272H29.336C29.84 4.272 30.1947 4.25333 30.4 4.216C30.6054 4.17867 30.7594 4.12733 30.862 4.062C30.9834 3.98733 31.0627 3.89867 31.1 3.796C31.1467 3.69333 31.17 3.56733 31.17 3.418C31.17 3.15667 31.1 2.90467 30.96 2.662C30.8294 2.41933 30.6427 2.158 30.4 1.878L31.954 0.967999C32.4114 1.528 32.7194 2.02267 32.878 2.452C33.0367 2.88133 33.116 3.32933 33.116 3.796C33.116 4.01067 33.074 4.26733 32.99 4.566C32.9154 4.86467 32.7567 5.126 32.514 5.35C32.2994 5.53667 32.0614 5.68133 31.8 5.784C32.0987 5.97067 32.3414 6.232 32.528 6.568C32.7147 6.89467 32.808 7.24467 32.808 7.618C32.808 7.76733 32.794 7.90733 32.766 8.038C33.0087 8.458 33.13 8.93867 33.13 9.48C33.13 10.068 32.99 10.5627 32.71 10.964C32.43 11.3653 32.066 11.6687 31.618 11.874C31.17 12.07 30.6894 12.168 30.176 12.168C29.616 12.168 29.1307 12.0793 28.72 11.902C28.3094 11.7153 27.9407 11.44 27.614 11.076C27.222 11.496 26.8207 11.7853 26.41 11.944C26.0087 12.0933 25.5607 12.168 25.066 12.168ZM25.486 10.39C25.8407 10.39 26.1207 10.264 26.326 10.012C26.5314 9.76 26.6574 9.43333 26.704 9.032H28.538C28.65 9.93733 29.1214 10.39 29.952 10.39C30.232 10.39 30.498 10.3293 30.75 10.208C31.002 10.0773 31.1607 9.81133 31.226 9.41C31.0767 9.48467 30.918 9.54067 30.75 9.578C30.5914 9.61533 30.414 9.634 30.218 9.634C29.8914 9.634 29.5787 9.578 29.28 9.466C28.9907 9.34467 28.7574 9.16733 28.58 8.934C28.4027 8.69133 28.314 8.39733 28.314 8.052C28.314 7.53867 28.4867 7.156 28.832 6.904C29.1867 6.64267 29.6394 6.512 30.19 6.512C30.33 6.512 30.4607 6.52133 30.582 6.54C30.3394 6.38133 30.0127 6.26 29.602 6.176C29.1914 6.08267 28.6687 6.036 28.034 6.036H27.656C26.6387 6.036 25.8454 6.29733 25.276 6.82C24.7067 7.33333 24.422 8.038 24.422 8.934C24.422 9.438 24.5154 9.80667 24.702 10.04C24.8887 10.2733 25.15 10.39 25.486 10.39ZM29.77 7.996C29.77 8.14533 29.826 8.25267 29.938 8.318C30.0594 8.374 30.1947 8.402 30.344 8.402C30.4747 8.402 30.6007 8.37867 30.722 8.332C30.8434 8.276 30.9414 8.18733 31.016 8.066C30.9414 7.926 30.8387 7.81867 30.708 7.744C30.5867 7.66 30.4374 7.618 30.26 7.618C30.12 7.618 30.0034 7.65067 29.91 7.716C29.8167 7.772 29.77 7.86533 29.77 7.996Z"
+                  fill={selectedLanguage == "Kannada" ? "#ffffff" : "#F97316"}
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+        <Link
+          href={"/characters"}
+          className="rounded-full bg-orange-500 text-center px-3.5 py-3 text-sm font-semibold text-white shadow-sm w-full mt-8"
+          onClick={() => {
+            window.localStorage.setItem("SELECTED_LANGUAGE", selectedLanguage);
+            window.localStorage.setItem("SELECTED_QUALITY", selectedQuality);
+          }}
+        >
+          Continue
+        </Link>
+      </section>
     </main>
-  )
+  );
 }
