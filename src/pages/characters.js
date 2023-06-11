@@ -5,6 +5,7 @@ import bgMandala from "../../public/assets/svgs/bg_mandala.svg";
 
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
+import posthog from "posthog-js";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -46,6 +47,9 @@ function Characters() {
               onClick={() => {
                 console.log("clicked");
                 push(`/story/?character=${singleCharacter}`);
+                posthog.capture("character_selected", {
+                  character: singleCharacter,
+                });
               }}
             >
               <img src={characterImageUrls[index]} className="rounded-t-lg" />

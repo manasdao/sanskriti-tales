@@ -2,7 +2,7 @@ import axios from "axios";
 import Constants from "../../../Constants";
 const url = "https://api.openai.com/v1/chat/completions";
 export default async function handler(request, response) {
-  const { story, question } = request.body;
+  const { story, question, childName } = request.body;
   console.log("key\n\n", story, typeof JSON.stringify(story), "\n\n");
   try {
     const headers = {
@@ -13,7 +13,7 @@ export default async function handler(request, response) {
     const messages = [
       {
         role: "system",
-        content: Constants.questionSystemMessage,
+        content: `${Constants.questionSystemMessage} The child's name is "${childName}"`,
       },
       {
         role: "user",

@@ -1,5 +1,6 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import posthog from "posthog-js";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../../public/assets/svgs/logo.svg";
 
@@ -45,11 +46,14 @@ function Daadi() {
       from: "ROBIN",
     },
   ]);
+  const [childName, setChildName] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
   // ! Effects
   useEffect(() => {
     let story = window.localStorage.getItem("CURRENT_STORY");
+    let childNamee = window.localStorage.getItem("CHILD_NAME");
     setCurrentStory(JSON.parse(story));
+    setChildName(childNamee);
   }, []);
   useEffect(() => {
     chatLength.current = robinChat.length;
@@ -75,6 +79,7 @@ function Daadi() {
       body: JSON.stringify({
         question: prompt,
         story: currentStory,
+        childName,
       }),
     });
     const reader = response.body.getReader();
@@ -107,7 +112,9 @@ function Daadi() {
         ...prevChat,
         { message: newMessage, from: "ROBIN" },
       ]);
-
+      posthog.capture("daadi_chat", {
+        chat: newMessage,
+      });
       currentRobinAnswerRef.current = "";
     }
   };
@@ -118,6 +125,9 @@ function Daadi() {
     ]);
     setUserChatMessage("");
     askRobinGlobal(userChatMessage);
+    posthog.capture("sending_user_chat", {
+      chat: userChatMessage,
+    });
   };
   //   console.log("robinChat", robinChat);
   return (

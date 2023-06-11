@@ -4,6 +4,7 @@ import logo from "../../public/assets/svgs/logo.svg";
 import { useState } from "react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
+import posthog from "posthog-js";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -163,10 +164,20 @@ export default function Home() {
         </div>
         <Link
           href={"/characters"}
-          className="rounded-full bg-orange-500 text-center px-3.5 py-3 text-sm font-semibold text-white shadow-sm w-full mt-8"
+          className="rounded-full z-10 bg-orange-500 text-center px-3.5 py-3 text-sm font-semibold text-white shadow-sm w-full mt-8"
           onClick={() => {
             window.localStorage.setItem("SELECTED_LANGUAGE", selectedLanguage);
             window.localStorage.setItem("SELECTED_QUALITY", selectedQuality);
+            window.localStorage.setItem("CHILD_NAME", nameInput);
+            posthog.identify(nameInput, {
+              name: nameInput,
+              language: selectedLanguage,
+              quality: selectedQuality,
+            });
+            posthog.capture("user_details_added", {
+              language: selectedLanguage,
+              quality: selectedQuality,
+            });
           }}
         >
           Continue

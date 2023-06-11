@@ -15,6 +15,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import posthog from "posthog-js";
 function Story() {
   // ! Hooks init
   const { query, push } = useRouter();
@@ -39,12 +40,19 @@ function Story() {
         setTimeout(() => {
           setIsLoaded(true);
         }, 600);
+        posthog.capture("story_started", {
+          character: query.character,
+        });
       }
     });
   }, []);
-  // useEffect(() => {
-  //   if (isLoaded) audioRef.current.handlePlay();
-  // }, [isLoaded]);
+  useEffect(() => {
+    if (storyline) {
+      posthog.capture("watching_story", {
+        slide_number: currentStorylineIndex,
+      });
+    }
+  }, [currentStorylineIndex, storyline]);
 
   useEffect(() => {
     if (query.character) {
@@ -156,6 +164,7 @@ function Story() {
             className="absolute top-3 right-3 inline-flex items-center gap-x-2 rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
             onClick={() => {
               push("/daadi");
+              posthog.capture("ask_daadi");
               window.localStorage.setItem(
                 "CURRENT_STORY",
                 JSON.stringify(storyline)
